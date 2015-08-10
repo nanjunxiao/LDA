@@ -4,7 +4,7 @@ OBJS=		strtokenizer.o dataset.o utils.o model.o
 MAIN=		lda
  
 all:	$(OBJS) $(MAIN).cpp
-	$(CC) -o $(MAIN) $(MAIN).cpp $(OBJS)
+	$(CC)  -o $(MAIN) $(MAIN).cpp $(OBJS) 
 	strip $(MAIN)
 
 strtokenizer.o:	strtokenizer.h strtokenizer.cpp

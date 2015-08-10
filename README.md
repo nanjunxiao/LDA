@@ -22,7 +22,7 @@ fixed bugs:
 2). Array out of bound. (double)random() / RAND_MAX in [0,1]
 ```
 int topic = (int)(((double)random() / RAND_MAX) * K);  -->  int topic = (int)(((double)random() / RAND_MAX + 1) * K);
-double u = ((double)random() / RAND_MAX) * p[K - 1];   -->  double u = ((double)random() / RAND_MAX+1) * p[K - 1];
+double u = ((double)random() / RAND_MAX) * p[K - 1];   -->  double u = ((double)random() / RAND_MAX + 1) * p[K - 1];
 ```
 
 #### 2. ompi-lda

@@ -74,6 +74,7 @@ public:
     int twords; // print out top words per each topic
     int withrawstrs;
 
+	//Louis: p(Z)的近似等价, p[k]->phi x theta = ZxW x DxZ
     double * p; // temp variable for sampling
     int ** z; // topic assignments for words, size M x doc.size()
     int ** nw; // cwt[i][j]: number of instances of word/term i assigned to topic j, size V x K

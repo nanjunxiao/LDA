@@ -91,7 +91,9 @@ public:
     
     ~document() {
 	if (words) {
-	    delete words;
+		//modified by Louis 2013-07-12
+	    delete [] words;
+	    //delete words;
 	}
     }
 };
@@ -124,14 +126,18 @@ public:
 		delete docs[i];
 	    }
 	}
-	delete docs;
+	//modified by Louis 2013-07-12
+	delete[] docs;
+	//delete docs;
 	
 	if (_docs) {
 	    for (int i = 0; i < M; i++) {
 		delete _docs[i];		
 	    }
 	}
-	delete _docs;	
+	//modified by Louis 2013-07-12
+	delete[] _docs;	
+	//delete _docs;	
     }
     
     void deallocate() {
@@ -140,7 +146,8 @@ public:
 		delete docs[i];
 	    }
 	}
-	delete docs;
+	//modified by Louis 2013-07-12
+	delete[] docs;
 	docs = NULL;
 
 	if (_docs) {
@@ -148,7 +155,8 @@ public:
 		delete _docs[i];
 	    }
 	}
-	delete _docs;
+	//modified by Louis 2013-07-12
+	delete[] _docs;
 	_docs = NULL;
     }
     
@@ -166,10 +174,12 @@ public:
 
     static int write_wordmap(string wordmapfile, mapword2id * pword2id);
     static int read_wordmap(string wordmapfile, mapword2id * pword2id);
+	//Louis: not ues.
     static int read_wordmap(string wordmapfile, mapid2word * pid2word);
     
     int read_trndata(string dfile, string wordmapfile);
     int read_newdata(string dfile, string wordmapfile);
+	//Louis: last term not 'find'; not find not insert
     int read_newdata_withrawstrs(string dfile, string wordmapfile);
 };
 

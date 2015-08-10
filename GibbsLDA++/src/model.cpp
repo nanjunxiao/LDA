@@ -42,7 +42,8 @@ using namespace std;
 
 model::~model() {
     if (p) {
-	delete p;
+	//delete p;
+	delete[] p;
     }
 
     if (ptrndata) {
@@ -59,6 +60,8 @@ model::~model() {
 		delete z[m];
 	    }
 	}
+	//added by Louis
+	delete[] z;
     }
     
     if (nw) {
@@ -67,6 +70,8 @@ model::~model() {
 		delete nw[w];
 	    }
 	}
+	//added by Louis
+	delete[] nw;
     }
 
     if (nd) {
@@ -75,14 +80,18 @@ model::~model() {
 		delete nd[m];
 	    }
 	}
+	//added by Louis
+	delete[] nd;	
     } 
     
     if (nwsum) {
-	delete nwsum;
+	//delete nwsum;
+	delete[] nwsum;
     }   
     
     if (ndsum) {
-	delete ndsum;
+	//delete ndsum;
+	delete[] ndsum;
     }
     
     if (theta) {
@@ -91,6 +100,8 @@ model::~model() {
 		delete theta[m];
 	    }
 	}
+	//added by Louis
+	delete[] theta;
     }
     
     if (phi) {
@@ -99,6 +110,8 @@ model::~model() {
 		delete phi[k];
 	    }
 	}
+	//added by Louis
+	delete[] phi;
     }
 
     // only for inference
@@ -108,6 +121,8 @@ model::~model() {
 		delete newz[m];
 	    }
 	}
+	//added by Louis
+	delete[] newz;
     }
     
     if (newnw) {
@@ -116,6 +131,8 @@ model::~model() {
 		delete newnw[w];
 	    }
 	}
+	//added by Louis
+	delete[] newnw;
     }
 
     if (newnd) {
@@ -124,14 +141,18 @@ model::~model() {
 		delete newnd[m];
 	    }
 	}
+	//added by Louis
+	delete[] newnd;
     } 
     
     if (newnwsum) {
-	delete newnwsum;
+	//delete newnwsum;
+	delete[] newnwsum;
     }   
     
     if (newndsum) {
-	delete newndsum;
+	//delete newndsum;
+	delete[] newndsum;
     }
     
     if (newtheta) {
@@ -140,6 +161,8 @@ model::~model() {
 		delete newtheta[m];
 	    }
 	}
+	//added by Louis
+	delete[] newtheta;
     }
     
     if (newphi) {
@@ -148,6 +171,8 @@ model::~model() {
 		delete newphi[k];
 	    }
 	}
+	//added by Louis
+	delete[] newphi;
     }
 }
 
@@ -638,7 +663,8 @@ int model::init_est() {
 	
         // initialize for z
         for (n = 0; n < N; n++) {
-    	    int topic = (int)(((double)random() / RAND_MAX) * K);
+			//modified by nanjunxiao
+    	    int topic = (int)(((double)random() / RAND_MAX + 1) * K);
     	    z[m][n] = topic;
     	    
     	    // number of instances of word i assigned to topic j
@@ -783,6 +809,7 @@ int model::sampling(int m, int n) {
     nw[w][topic] -= 1;
     nd[m][topic] -= 1;
     nwsum[topic] -= 1;
+	//Louis no need,2013-07-20
     ndsum[m] -= 1;
 
     double Vbeta = V * beta;
@@ -797,7 +824,8 @@ int model::sampling(int m, int n) {
 	p[k] += p[k - 1];
     }
     // scaled sample because of unnormalized p[]
-    double u = ((double)random() / RAND_MAX) * p[K - 1];
+	//modified by nanjunxiao
+    double u = ((double)random() / RAND_MAX + 1) * p[K - 1];
     
     for (topic = 0; topic < K; topic++) {
 	if (p[topic] > u) {
@@ -809,6 +837,7 @@ int model::sampling(int m, int n) {
     nw[w][topic] += 1;
     nd[m][topic] += 1;
     nwsum[topic] += 1;
+	//Louis no need,2013-07-20
     ndsum[m] += 1;    
     
     return topic;
